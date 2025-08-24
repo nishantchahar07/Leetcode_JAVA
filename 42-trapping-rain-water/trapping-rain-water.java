@@ -1,43 +1,28 @@
 class Solution {
-    public int trap(int[] arr) {
-        int n =  arr.length;
-        int [] pre =  new int[n];
-        int [] suf =  new int[n];
-         int ans = 0;       
-        pre[0] = arr[0];
-        suf[n-1] =  arr[n-1];
-        for(int i = 1 ; i < n ; i++){
-        if(arr[i] > pre[i-1]){
-            pre[i] = arr[i];
-
-       }
-       else{
-        pre[i] = pre[i-1];
-       } 
-                
-       
-       
-       }
-       
-        for(int i = n-2 ; i >= 0 ; i--){
-        if(arr[i] > suf[i+1]){
-            suf[i] = arr[i];
-
-       }
-       else{
-        suf[i] = suf[i+1];
-       } 
+    public int trap(int[] height) {
+        int n = height.length;       
+        if (n < 3) {
+            return 0;
         }
-      
+
+        int totalWater = 0;        
+        int[] leftMax = new int[n];
+        leftMax[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+        }      
+        int[] rightMax = new int[n];
+        rightMax[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(rightMax[i + 1], height[i]);       }
+
+       
+        for (int i = 0; i < n; i++) {
     
-       for(int k =0 ; k < n ; k++){
-          ans += Math.min(pre[k] ,  suf[k]) - arr[k];
-       }
-                
-       
-       
-       
-       
-        return ans;
+            int waterLevel = Math.min(leftMax[i], rightMax[i]);           
+            
+            totalWater += waterLevel - height[i];        }
+
+        return totalWater;
     }
 }
