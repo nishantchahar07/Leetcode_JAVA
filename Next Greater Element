@@ -1,0 +1,22 @@
+class Solution {
+    public ArrayList<Integer> nextLargerElement(int[] arr) {
+       Stack<Integer> st =  new Stack<>();
+       ArrayList<Integer> ll  =  new ArrayList<>();
+       int []palak  = new int[arr.length];
+      for(int i = 0; i< arr.length ; i++){
+          while(!st.isEmpty() && arr[i] > arr[st.peek()]){
+              palak[st.pop()] = arr[i];
+              
+          }
+          st.push(i);
+      }
+      
+      while(!st.isEmpty()){
+          palak[st.pop()] = -1;
+      }
+   for(int i : palak){
+       ll.add(i);
+   }
+      return ll;
+    }
+}
