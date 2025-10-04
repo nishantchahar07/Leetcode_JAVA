@@ -1,37 +1,39 @@
 class Solution {
-    public int[] searchRange(int[] arr, int target) {
-        int[] ans = new int[]{-1, -1};
-        if (arr.length == 0) return ans;
+    public int[] searchRange(int[] nums, int target) {
+        int st = 0;
+        int end  = nums.length-1;
+        int ans = -1;
+        int[] arr =  new int[2];
+         while(st <= end){
+                int mid =  st + (end-st)/2;                
+                if(nums[mid] >= target ){
+                     if(nums[mid] == target)
+                     ans =  mid;
+                    end =  mid-1;
+                }
+                else{
+                    st =  mid + 1;
 
+                }
+        }
+        arr[0] =  ans;
+         st = 0;
+        end  = nums.length-1;
+        ans = -1;
        
-        int i = 0, j = arr.length - 1;
-        while (i <= j) {
-            int mid = i + (j - i) / 2;
-            if (arr[mid] == target) {
-                ans[0] = mid;
-                j = mid - 1; 
-            } else if (arr[mid] > target) {
-                j = mid - 1;
-            } else {
-                i = mid + 1;
-            }
-        }
+         while(st <= end){
+                int mid =  st + (end-st)/2;                
+                if(nums[mid] <= target ){
+                    if(nums[mid] == target)
+                     ans =  mid;
+                    st =  mid+1;
+                }
+                else{
+                    end =  mid - 1;
 
-        
-        i = 0;
-        j = arr.length - 1;
-        while (i <= j) {
-            int mid = i + (j - i) / 2;
-            if (arr[mid] == target) {
-                ans[1] = mid;
-                i = mid + 1; 
-            } else if (arr[mid] > target) {
-                j = mid - 1;
-            } else {
-                i = mid + 1;
-            }
+                }
         }
-
-        return ans;
+        arr[1] =  ans;
+        return arr;
     }
 }
