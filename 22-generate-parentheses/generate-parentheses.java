@@ -6,7 +6,7 @@ class Solution {
         }
         if(open < n)
         gp(open+1 , close , n , ans+"(" , ll);
-        if( close < n && open > close)
+        if(  open > close)
         gp(open, close+1 , n , ans+")" , ll);
     }
     public List<String> generateParenthesis(int n) {
