@@ -1,23 +1,24 @@
 class Solution {
-    public static void getSubset(int[] arr  ,int idx ,  List<Integer> ll , List<List<Integer>> list ){
-
-        if(idx == arr.length){
-         list.add(new ArrayList(ll));
-         return ;
+    public static void superset(int i , int[] nums ,  List<Integer> ll ,   HashSet<List<Integer>> set  ){
+        if(i > nums.length ) return ;
+        if(i == nums.length ){
+            set.add(new ArrayList<>(ll));
+            return;
         }
-     
-        getSubset(arr , idx+1 , ll , list);
-         ll.add(arr[idx]);
-        getSubset(arr , idx+1 ,ll, list) ;
-        ll.remove(ll.size()-1);
+        superset(i+1 ,  nums ,  ll ,  set);
+      ll.add(nums[i]);
+superset(i + 1, nums, ll, set);
+ll.remove(ll.size() - 1);
     }
-
-       
-    
     public List<List<Integer>> subsets(int[] nums) {
-        List<Integer> ll = new ArrayList<>();
-        List<List<Integer>> list = new ArrayList<>();
-         getSubset(nums ,0,ll,list);
-         return list;
+     List<List<Integer>> ans =  new ArrayList<>();
+     List<Integer> ll =  new ArrayList<>();
+     HashSet<List<Integer>> set = new HashSet<>();
+     superset(0 , nums , ll , set );
+    for (List<Integer> l : set) {
+    ans.add(l);
+}
+
+     return ans;
     }
 }
