@@ -1,28 +1,17 @@
 class Solution {
-    public static void generate(int n , int open , int close , String ans  , List<String> ll ){
-       
-        if(ans.length() == 2*n){
-              ll.add(ans); 
-              return;            
-           
+    public static void gp(int open , int close , int n , String ans ,List<String> ll){
+        if(open == n && close == n){
+            ll.add(ans);
+            return;
         }
-     if(open < n){
-       generate(n , open + 1 , close , ans+"(" , ll);
-     }
-       if(open > close){
-      generate(n , open , close+1 , ans+")" , ll );
-     }
-    
+        if(open < n)
+        gp(open+1 , close , n , ans+"(" , ll);
+        if( close < n && open > close)
+        gp(open, close+1 , n , ans+")" , ll);
     }
     public List<String> generateParenthesis(int n) {
-    String ans = "";
-    int open = 0;
-    int close = 0;
-    List<String> ll = new ArrayList<>();
-    
-    generate(n , open ,  close , ans , ll );
-    return ll;
-
-      
+        List<String> ll = new ArrayList<>();
+        gp(0 , 0 , n , "" , ll);
+        return ll;
     }
 }
