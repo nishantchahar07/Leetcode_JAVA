@@ -4,15 +4,16 @@ class Solution {
         int end = 0;
         int ans = 0;
         int max = 0;
-        HashMap<Character , Integer> map =  new HashMap<>();
+        HashSet<Character> set=  new HashSet();
         while(end < s.length()){
-            map.put(s.charAt(end) , map.getOrDefault(s.charAt(end) , 0)+1);
-                while( st <= end && map.get(s.charAt(end) )> 1 ){
-                    map.put(s.charAt(st) , map.get(s.charAt(st))-1);
-                    if(map.get(s.charAt(st)) == 0) map.remove(s.charAt(st));
-                    st++;
-
-                }
+            char ch =  s.charAt(end);
+           if(set.contains(ch)){
+            while( st <= end && set.contains(ch)){                
+                set.remove(s.charAt(st));
+                st++;
+            }
+           }
+           set.add(ch);        
                  
             ans =  end-st+1;
             max =  Math.max(ans , max);
