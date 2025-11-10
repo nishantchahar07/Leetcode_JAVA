@@ -14,10 +14,19 @@
  * }
  */
 class Solution {
+    public boolean traverse(TreeNode root1 , TreeNode root2){
+        if(root1 == null && root2 == null) return true;
+         if(root1 == null || root2 == null) return false;
+
+         if(root1.val != root2.val)
+          return false;
+
+    boolean left =   traverse(root1.left , root2.left);
+    boolean right =  traverse(root1.right , root2.right);
+        
+          return (left && right);
+    }
     public boolean isSameTree(TreeNode p, TreeNode q) {
-     if(p == null && q == null) return true;
-       if(p == null || q == null) return false;
-  if(p.val != q.val) return false;
-    return isSameTree(p.left , q.left)&& isSameTree(p.right , q.right);
+       return  traverse(p , q);
     }
 }
