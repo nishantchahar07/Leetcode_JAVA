@@ -15,12 +15,11 @@
  */
 class Solution {
     public int traverse(TreeNode root){
-        int count = 0;
+        // int count = 0;
         if(root == null)return 0;
-        count++;
      int left =    traverse(root.left);
      int right  =    traverse(root.right);
-return count + left + right ;
+return  left + right +1;
     }
     public int countNodes(TreeNode root) {      
         return traverse(root);
