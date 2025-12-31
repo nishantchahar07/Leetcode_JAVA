@@ -4,7 +4,7 @@ class Solution {
 
         for(int i : adj.get(src)){
             if(!visited[i]){
-                 visited[i] = true;
+               
                 dfs(i ,  adj ,  visited);
             }
         }
