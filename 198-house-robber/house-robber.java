@@ -1,17 +1,17 @@
 class Solution {
-    public static int robbery(int[] nums ,  int i , int[] dp){
+    public int get(int[] nums , int i ,  HashMap<Integer, Integer> map ){
         if(i >= nums.length) return 0;
-        if(dp[i] != -1){
-            return dp[i];
-        }
+        if(map.containsKey(i))return map.get(i);
+         int nrb =  get(nums ,  i+1, map);
+        int rb = nums[i]+get( nums , i+2, map);
 
-        int chori = nums[i]+robbery(nums , i+2 , dp);
-        int nochori =  robbery(nums , i+1 , dp);
-        return dp[i] =  Math.max(chori , nochori);
+        int ans = Math.max(rb , nrb) ;
+       map.put(i , ans);
+       return ans;
+       
     }
     public int rob(int[] nums) {
-        int[] dp = new int[nums.length];
-        Arrays.fill(dp , -1);
-      return  robbery(nums , 0 , dp);
+        HashMap<Integer, Integer> map = new HashMap<>();
+        return get(nums , 0 ,  map); 
     }
 }
