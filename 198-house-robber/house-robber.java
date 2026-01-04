@@ -1,17 +1,27 @@
 class Solution {
-    public int get(int[] nums , int i ,  HashMap<Integer, Integer> map ){
-        if(i >= nums.length) return 0;
-        if(map.containsKey(i))return map.get(i);
-         int nrb =  get(nums ,  i+1, map);
-        int rb = nums[i]+get( nums , i+2, map);
 
-        int ans = Math.max(rb , nrb) ;
-       map.put(i , ans);
-       return ans;
+    public int get(int[] nums, int[] arr) {
+
+    
+        if (nums.length == 1) return nums[0];
+
        
+        arr[0] = nums[0];
+        arr[1] = Math.max(nums[0], nums[1]);
+
+        for (int i = 2; i < nums.length; i++) {
+
+            int rob = nums[i] + arr[i - 2];
+            int notRob = arr[i - 1];
+
+            arr[i] = Math.max(rob, notRob);
+        }
+
+        return arr[nums.length - 1];
     }
+
     public int rob(int[] nums) {
-        HashMap<Integer, Integer> map = new HashMap<>();
-        return get(nums , 0 ,  map); 
+        int[] arr = new int[nums.length];
+        return get(nums, arr);
     }
 }
