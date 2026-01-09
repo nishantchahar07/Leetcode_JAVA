@@ -4,12 +4,12 @@ class Solution {
         int n = triangle.size();
         int[][] dp = new int[n][n];
 
-        // base case: last row copy
+        
         for (int j = 0; j < triangle.get(n - 1).size(); j++) {
             dp[n - 1][j] = triangle.get(n - 1).get(j);
         }
 
-        // bottom-up
+      
         for (int i = n - 2; i >= 0; i--) {
             for (int j = 0; j <= i; j++) {
                 dp[i][j] = triangle.get(i).get(j)
