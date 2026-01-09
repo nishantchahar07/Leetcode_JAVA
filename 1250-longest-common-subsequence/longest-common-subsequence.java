@@ -1,27 +1,25 @@
 class Solution {
-    public int seq(String txt1 , String txt2 , int vidx1  , int vidx2 , int[][]dp){
-        if(txt1.length() == vidx1 || txt2.length() == vidx2)return 0;
-        if(dp[vidx1][vidx2] != -1)return dp[vidx1][vidx2];
-        
-        if(txt1.charAt(vidx1) == txt2.charAt(vidx2)){
-            int equal = seq(txt1, txt2 , vidx1+1 , vidx2+1 , dp);
-            return dp[vidx1][vidx2] = equal+1;
-        } 
+    public int get(String str1 , String str2 , int i , int j , int[][]dp){
+        if(i >= str1.length() || j >= str2.length())return 0;
+        if(dp[i][j] != -1)return dp[i][j] ;
+        int ans  = 0;
+        if(str1.charAt(i) == str2.charAt(j)){
+           ans =  1+get( str1 ,  str2 ,  i+1 ,  j+1 , dp);
+           dp[i][j] = ans ;
+        }
         else{
-            int left =  seq(txt1, txt2 ,  vidx1+1 ,  vidx2  , dp);
-            int right  = seq(txt1, txt2 ,  vidx1 ,  vidx2+1 , dp );
-            return dp[vidx1][vidx2] = Math.max(left, right);
-        } 
-        
+            int a = get( str1 ,  str2 ,  i+1 ,  j , dp);
+            int b =  get( str1 ,  str2 ,  i ,  j+1 , dp);
+            ans =  Math.max(a,b);
+            dp[i][j] = ans;
+        }
+        return ans;
     }
     public int longestCommonSubsequence(String text1, String text2) {
-
-        int[][]dp = new int[text1.length()+1][text2.length()+1];
-      for (int i = 0; i < text1.length() + 1; i++) {
-    Arrays.fill(dp[i], -1);
-}
-
-        return seq(text1 , text2 , 0 , 0 ,dp);
-
+        int[][] dp = new int[text1.length()][text2.length()];
+        for(int[] i : dp){
+            Arrays.fill(i , -1);
+        }
+        return get(text1 , text2 ,0,0 , dp);
     }
 }
