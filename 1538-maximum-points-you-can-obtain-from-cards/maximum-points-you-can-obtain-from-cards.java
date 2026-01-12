@@ -1,26 +1,20 @@
 class Solution {
-    public int maxScore(int[] arr , int k) {
-        int st = 0;
-        int end = arr.length-1;
-        int ans = 0;
-        int max =  0;
-        while(st < k){
-            ans+=arr[st];
-            st++;
-
+    public int maxScore(int[] card, int k) {
+        int n =  card.length;
+        int lsum = 0;
+        int rsum = 0;
+        int max = 0;
+        for(int i = 0 ; i < k ; i++){
+            lsum+=card[i];
         }
-        max= Math.max(ans ,  max);
-        st--;
+        max = lsum;
+        int ridx = n-1;
 
-        while(st >= 0 && st < arr.length ){
-            ans-=arr[st];
-            ans+=arr[end];
-         max= Math.max(ans ,  max);
-
-            end--;
-            st--;
+        for(int i = k-1 ; i >= 0 ; i--){
+            lsum-=card[i];
+            rsum+=card[ridx--];
+            max = Math.max(max ,  lsum + rsum);
         }
         return max;
     }
-
 }
