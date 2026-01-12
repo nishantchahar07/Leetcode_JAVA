@@ -1,21 +1,26 @@
 class Solution {
     public int totalFruit(int[] arr) {
-        HashMap<Integer , Integer> map =  new HashMap<>();
+
+        HashMap<Integer, Integer> map = new HashMap<>();
         int i = 0;
         int max = 0;
-        for(int j = 0 ; j < arr.length ; j++){
-            map.put(arr[j] , map.getOrDefault(arr[j] , 0)+1);
-            if(map.size() > 2){
-                map.put(arr[i] , map.get(arr[i])-1);
-                if (map.get(arr[i]) == null || map.get(arr[i]) == 0) {
-          map.remove(arr[i]);
-}
 
-                i++; 
+        for (int j = 0; j < arr.length; j++) {
+
+            map.put(arr[j], map.getOrDefault(arr[j], 0) + 1);
+
+            while (map.size() > 2) {
+                map.put(arr[i], map.get(arr[i]) - 1);
+
+                if (map.get(arr[i]) == 0) {
+                    map.remove(arr[i]);
+                }
+                i++;
             }
-            int size = j-i+1;
-            max = Math.max(max , size);
+
+            max = Math.max(max, j - i + 1);
         }
+
         return max;
     }
 }
