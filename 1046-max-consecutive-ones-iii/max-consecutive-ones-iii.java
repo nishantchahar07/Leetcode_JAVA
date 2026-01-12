@@ -1,24 +1,25 @@
 class Solution {
-    public int longestOnes(int[] nums, int k) {
-            int st = 0;
-            int end = 0;
-            int ans = 0;
-            int max = 0;
-            while(end < nums.length){
-                int ch =  nums[end];                
-                if(ch == 0){
-                    k--;
-                    while (k < 0){
-                        if (nums[st]== 0)
-                        k++;
-                        st++;
-                       
-                    }
-                }
-                ans =  end-st+1;
-                max =  Math.max(ans , max);
-                end++;
+    public int longestOnes(int[] arr, int k) {
+
+        int i = 0;
+        int max = 0;
+
+        for (int j = 0; j < arr.length; j++) {
+
+            if (arr[j] == 0) { // bhai phle condn check kiya kr 
+                k--;
             }
-            return max;
-    }
+
+            while (k < 0) {
+                if (arr[i] == 0) {  // then loop kya ab valid hai 
+                    k++;
+                }
+                i++;
+            }
+
+            max = Math.max(max, j - i + 1); // check for max 
+        }
+
+        return max;
+    } 
 }
