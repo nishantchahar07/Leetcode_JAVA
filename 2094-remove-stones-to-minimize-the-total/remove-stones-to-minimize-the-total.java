@@ -1,21 +1,24 @@
-class Solution { 
-    
-    public int minStoneSum(int[] arr, int k) {
-          PriorityQueue<Integer> pq =  new PriorityQueue<>(Collections.reverseOrder());
-          for(int i = 0 ; i < arr.length ; i++){
-            pq.add(arr[i]);
-          }
-          while(pq.size() > 0 && k > 0){
-            int val = pq.poll();
-            int ans =  val - (int) Math.floor(val/2);
-            if(ans != 0)pq.add(ans);
-            k--;
-          }
+class Solution {
 
-          int  sum = 0;
-          while(!pq.isEmpty()){
-            sum+=pq.poll();
-          }
-          return sum ;
+    public int minStoneSum(int[] piles, int k) {
+
+        PriorityQueue<Integer> pq =
+            new PriorityQueue<>(Collections.reverseOrder());
+
+        int sum = 0;
+
+        for (int x : piles) {
+            pq.add(x);
+            sum += x;
+        }
+
+        while (k-- > 0) {
+            int val = pq.poll();
+            int removed = val / 2;
+            sum -= removed;          // 🔥 directly update sum
+            pq.add(val - removed);
+        }
+
+        return sum;
     }
 }
