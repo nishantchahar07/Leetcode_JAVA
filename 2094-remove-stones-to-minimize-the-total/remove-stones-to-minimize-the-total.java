@@ -15,7 +15,7 @@ class Solution {
         while (k-- > 0) {
             int val = pq.poll();
             int removed = val / 2;
-            sum -= removed;          // 🔥 directly update sum
+            sum -= removed;         
             pq.add(val - removed);
         }
 
