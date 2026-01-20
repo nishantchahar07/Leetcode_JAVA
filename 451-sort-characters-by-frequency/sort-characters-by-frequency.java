@@ -1,29 +1,26 @@
-public class Solution {
-    public class Pair {
-          char cs;
-          int val;
-          public Pair(char cs , int val){
-            this.cs =  cs;
-            this.val =  val;
-          }
+class Solution {
+    class Pair{
+        char cs;
+        int freq;
+        public Pair(char cs  , int freq){
+            this.cs = cs;
+            this.freq =  freq;
+        }
     }
+
     public String frequencySort(String s) {
-        HashMap<Character , Integer >  map = new HashMap<>();
-        for( char ch : s.toCharArray()){
-            map.put(ch ,  map.getOrDefault(ch , 0)+1);
+         PriorityQueue<Pair>  pq = new PriorityQueue<>((a,b) -> b.freq - a.freq);
+         HashMap<Character , Integer>  map =  new HashMap<>();
+        StringBuilder  str = new StringBuilder();
+        for(char cs : s.toCharArray()){
+            map.put(cs ,  map.getOrDefault(cs , 0)+1);
         }
-        Pair[] arr =  new Pair[map.size()];
-        int i = 0;
-        for(char ch : map.keySet()){
-            arr[i++] =  new Pair(ch ,  map.get(ch));
+        for(char cs : map.keySet()){
+           pq.add(new Pair(cs , map.get(cs))); 
         }
-        Arrays.sort(arr , (a,b) -> b.val-a.val);
-        StringBuilder str = new StringBuilder();
-        for(int p = 0 ; p < arr.length ; p++){
-            for(int n = 0 ; n < arr[p].val ; n++){
-                 str.append(arr[p].cs);
-            }
-           
+        while(!pq.isEmpty()){
+            Pair p = pq.poll();
+           str.append(String.valueOf(p.cs).repeat(p.freq));
         }
         return str.toString();
     }
