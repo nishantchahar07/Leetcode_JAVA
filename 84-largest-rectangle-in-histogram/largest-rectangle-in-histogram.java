@@ -1,0 +1,50 @@
+class Solution {
+    public int[] getNSL(int[] height) {
+        Stack<Integer> st = new Stack<>();
+        int[] nsl = new int[height.length];
+
+        for (int i = 0; i < height.length; i++) {
+            while (!st.isEmpty() && height[st.peek()] >= height[i]) {
+                st.pop();
+            }
+            nsl[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+        return nsl;
+    }
+
+
+    public int[] getNSR(int[] height) {
+        Stack<Integer> st = new Stack<>();
+        int n = height.length;
+        int[] nsr = new int[n];
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && height[st.peek()] >= height[i]) {
+                st.pop();
+            }
+            nsr[i] = st.isEmpty() ? n : st.peek();
+            st.push(i);
+        }
+        return nsr;
+    }
+
+    public int getArea(int[] height) {
+        int[] nsl = getNSL(height);
+        int[] nsr = getNSR(height);
+
+        int maxArea = 0;
+
+        for (int i = 0; i < height.length; i++) {
+            int width = nsr[i] - nsl[i] - 1;
+            int area = height[i] * width;
+            maxArea = Math.max(maxArea, area);
+        }
+        return maxArea;
+    }
+
+ 
+    public int largestRectangleArea(int[] heights) {
+        return getArea(heights);
+    }
+}
