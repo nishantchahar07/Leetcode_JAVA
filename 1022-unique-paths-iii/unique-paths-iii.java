@@ -3,7 +3,7 @@ class Solution {
     int total = 0;
 
     public int dfs(int[][] grid, int i, int j, int visited) {
-
+        int[][] dir = {{1,0} , {0,1} , {-1, 0} , {0,-1}};
         if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == -1)
             return 0;
 
@@ -13,12 +13,14 @@ class Solution {
 
         int temp = grid[i][j];
         grid[i][j] = -1;
-
+        
         int paths = 0;
-        paths += dfs(grid, i + 1, j, visited + 1);
-        paths += dfs(grid, i - 1, j, visited + 1);
-        paths += dfs(grid, i, j + 1, visited + 1);
-        paths += dfs(grid, i, j - 1, visited + 1);
+        for(int[] arr : dir){
+            int si = i + arr[0];
+            int sj = j + arr[1];
+            paths+=dfs(grid, si, sj, visited+1);
+        }
+        
 
         grid[i][j] = temp;
 
@@ -26,7 +28,7 @@ class Solution {
     }
 
     public int uniquePathsIII(int[][] grid) {
-
+    
         int si = 0, sj = 0;
 
         for (int i = 0; i < grid.length; i++) {
