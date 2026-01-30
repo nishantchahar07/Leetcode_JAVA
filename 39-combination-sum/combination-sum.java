@@ -1,23 +1,24 @@
 class Solution {
-    public static void getSum(int[] arr , int idx , int target , List<Integer> ll ,  List<List<Integer>> list){
-        if(idx == arr.length || target < 0)return;
-        if(target == 0){
-
-            list.add(new ArrayList(ll));
+    public void get(int[] candidates, int target ,   List<List<Integer>> ans ,   List<Integer> ll , int sum,int start ){
+        if(sum > target)return;
+        if(sum == target){          
+            ans.add(new ArrayList<>(ll));           
             return;
         }
-       ll.add(arr[idx]);
-       getSum(arr , idx , target-arr[idx] , ll , list )  ;
-       ll.remove(ll.size()-1);
-    //    idx+=1;
-       getSum(arr , idx+1 , target , ll , list )  ;
-       
+        for(int i = start ; i < candidates.length ; i++){          
+             sum+=candidates[i];
+             ll.add(candidates[i]);
+               get(candidates , target , ans , ll , sum , i);
+                sum-=candidates[i];
+             ll.remove(ll.size()-1); 
+                 
+        }
     }
-    public List<List<Integer>> combinationSum(int[] arr, int target) {
-           List<List<Integer>> list =  new ArrayList<>();
-        List<Integer> ll = new ArrayList<>();
-        getSum(arr , 0 , target ,  ll , list);
-        return list;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+         List<List<Integer>> ans  =  new  ArrayList<>();
+         List<Integer> ll =  new ArrayList<>();      
+        
+        get(candidates, target , ans , ll , 0, 0);
+        return ans;
     }
-
 }
