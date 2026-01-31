@@ -1,26 +1,38 @@
 class Solution {
-    public int[][] merge(int[][] arr) {
-        Arrays.sort(arr ,  (a1 , b1) -> a1[0] - b1[0]);
-        List<int[]> ll = new ArrayList<>();
-        int start = arr[0][0];
-        int end =  arr[0][1];
+    class Pair{
+        int a;
+        int b;
+        public Pair(int a , int b){
+            this.a =  a;
+            this.b = b;
 
-        for(int i = 1 ; i < arr.length ; i++){
-          int s = arr[i][0];
-          int e =  arr[i][1];
-          if(end >= s){
-                end =  Math.max(end , e);
-                
-          }
-          else{
-            ll.add(new int[]{start , end});
-              start  =  s;
-              end =  e;
-          }
         }
-        ll.add(new int[]{start , end});
-       return ll.toArray(new int[0][]);
-
-        
+    }
+    public int[][] merge(int[][] arr) {
+     Stack<Pair>  st =  new Stack<>();
+      Arrays.sort(arr , (a , b) -> a[0]-b[0]);
+     for(int i = 0 ; i < arr.length ; i++){
+        if(!st.isEmpty() && st.peek().b >= arr[i][0]){
+            Pair val = st.pop();
+            if(val.b < arr[i][1]){
+            st.push(new Pair(val.a , arr[i][1]));
+            }
+            else{
+                st.push(new Pair(val.a , val.b));
+            }
+        }
+        else{
+            st.push(new Pair(arr[i][0] ,  arr[i][1]));
+        }
+     }
+      int[][] ans  = new int [st.size()][2];
+      int k = 0;
+      while(!st.isEmpty()){
+        ans[k][0] = st.peek().a;
+        ans[k][1] =  st.peek().b;
+        st.pop();
+        k++;
+      }
+      return ans;
     }
 }
