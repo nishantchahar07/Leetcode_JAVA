@@ -14,16 +14,24 @@
  * }
  */
 class Solution {
-    public void inorder(TreeNode root ,List<Integer>ll ){
-        if(root == null)return ;
-       inorder(root.left , ll);
-        ll.add(root.val);
-       inorder(root.right, ll);
-
-    }
     public List<Integer> inorderTraversal(TreeNode root) {
-            List<Integer> ll = new LinkedList<>();
-            inorder(root , ll);
-            return ll;
-    }
+        List<Integer> ll =  new ArrayList<>();
+        Stack<TreeNode> st = new Stack<>();
+        TreeNode current = root;
+        while(current != null || !st.isEmpty()){
+            //left waale list me add kro
+            while(current != null){
+                st.push(current);
+                current = current.left;
+            }
+
+            current = st.pop();
+            ll.add(current.val);
+
+            current = current.right;
+        }
+
+        return ll;
+
+    }  
 }
