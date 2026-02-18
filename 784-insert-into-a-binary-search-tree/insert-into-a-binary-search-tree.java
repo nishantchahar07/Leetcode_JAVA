@@ -15,19 +15,18 @@
  */
 class Solution {
     public TreeNode insertIntoBST(TreeNode root, int val) {
-        if(root ==  null ){
-          return new TreeNode(val);
+        return insert(root,val);
+    }
+    public TreeNode insert(TreeNode root, int val){
+        if(root == null){
+            return new TreeNode(val);
         }
-        
         if(root.val > val){
-            root.left = insertIntoBST(root.left, val);
+            root.left = insert(root.left,val);
         }
         else{
-            root.right = insertIntoBST(root.right,  val);
+            root.right = insert(root.right,val);
         }
-    
-
-      return root;
-        
+        return root;
     }
 }
